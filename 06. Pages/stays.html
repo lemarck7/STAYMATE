@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Featured Accommodations - STAYMATE</title>
+    <link rel="stylesheet" href="../03. Css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-container stays-header-container">
+      <header>
+        <a href="index.html" class="logo">STAYMATE</a>
+        <nav>
+          <a href="stays.html">Stays</a>
+          <a href="#">Experiences</a>
+          <a href="#">Garage</a>
+        </nav>
+        <div class="actions">
+          <a href="#" class="button">Post your stay</a>
+          <a href="#">Language</a>
+          <img
+            src="../02. Assets/Images/1.jpg"
+            alt="Profile Picture"
+            class="profile-pic"
+          />
+        </div>
+      </header>
+      <!-- Contenedor para los títulos -->
+      <div class="header-titles">
+        <h1>Flexible living. Weekly stays. Anywhere.</h1>
+        <p>Move-in ready apartments across Australia</p>
+      </div>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="search-filter-bar">
+      <button class="filter-button">Filters</button>
+      <button class="filter-button">Price <span>&#9660;</span></button>
+      <button class="filter-button">Rooms <span>&#9660;</span></button>
+    </div>
+
+    <main class="main-content">
+      <div class="featured-accommodations-container">
+        <!-- Contenedor para alojamientos destacados -->
+        <div id="featured-accommodations" class="featured-accommodations"></div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-links">
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Seguridad</a>
+          <a href="#">Ayuda</a>
+          <a href="#">Blog</a>
+          <a href="#">Tienda</a>
+          <a href="#">Configuración de cookies</a>
+        </div>
+        <div class="footer-social">
+          <span>Síguenos</span>
+          <a href="#"
+            ><img src="../02. Assets/icons/facebook.png" alt="Facebook"
+          /></a>
+          <a href="#"
+            ><img src="../02. Assets/icons/twitter.png" alt="Twitter"
+          /></a>
+          <a href="#"
+            ><img src="../02. Assets/icons/tumblr.png" alt="Tumblr"
+          /></a>
+          <a href="#"
+            ><img src="../02. Assets/icons/instagram.png" alt="Instagram"
+          /></a>
+        </div>
+        <div class="footer-apps">
+          <span>Apps móviles</span>
+          <a href="#"
+            ><img src="../02. Assets/icons/apple.png" alt="Apple"
+          /></a>
+          <a href="#"
+            ><img src="../02. Assets/icons/android.png" alt="Android"
+          /></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 1999-2024 Staymate International, Inc.</span>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Mapa del sitio</a>
+      </div>
+    </footer>
+
+    <script src="../04. Js/script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Cargar alojamientos destacados
+        fetch("../05. data/featured_accommodations.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const accommodations = data.featured_accommodations;
+            const container = document.getElementById(
+              "featured-accommodations"
+            );
+
+            accommodations.forEach((accommodation) => {
+              const div = document.createElement("div");
+              div.classList.add("accommodation");
+
+              div.innerHTML = `
+              <img src="${accommodation.image_url}" alt="${accommodation.title}">
+              <div class="accommodation-details">
+                <h3>${accommodation.title}</h3>
+                <p>Location: ${accommodation.location}</p>
+                <p>Price per night: $${accommodation.price_per_night}</p>
+                <p>Rating: ${accommodation.rating} (${accommodation.reviews} reviews)</p>
+                <div class="accommodation-actions">
+                  <button class="button book-button">Book</button>
+                  <button class="button inspect-button">Inspect</button>
+                  <button class="button contact-button">Contact</button>
+                </div>
+              </div>
+            `;
+
+              container.appendChild(div);
+            });
+          })
+          .catch((error) =>
+            console.error("Error loading accommodations:", error)
+          );
+      });
+    </script>
+  </body>
+</html>
